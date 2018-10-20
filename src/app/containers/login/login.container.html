@@ -1,0 +1,11 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="IITK Username" formControlName="username" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Password" type="password" formControlName="password" required>
+  </mat-form-field>
+
+  <button type="submit" [disabled]="!loginForm.valid" mat-stroked-button>Login</button>
+</form>
