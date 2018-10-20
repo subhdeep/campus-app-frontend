@@ -3,9 +3,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -17,12 +19,12 @@ import { environment } from '../environments/environment';
 
 import { ROUTES } from './app.routing';
 import { AppComponent } from './app.component';
-import { reducers, metaReducers } from './reducers';
+import { components } from './components';
 import { containers } from './containers';
-import { AppEffects } from './app.effects';
+import { effects, metaReducers, reducers } from './store';
 
 @NgModule({
-  declarations: [AppComponent, ...containers],
+  declarations: [AppComponent, ...components, ...containers],
   imports: [
     // Core Angular Stuff
     BrowserModule,
@@ -33,16 +35,18 @@ import { AppEffects } from './app.effects';
       enableTracing: !environment.production,
     }),
     BrowserAnimationsModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
 
     // Angular Material Stuff
     MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
 
     // NgRx stuff
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
