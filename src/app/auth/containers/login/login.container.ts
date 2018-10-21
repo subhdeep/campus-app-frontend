@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { State } from '../../store';
+import { Login } from '../../store/actions/auth.actions';
 
 @Component({
   templateUrl: './login.container.html',
@@ -11,9 +14,9 @@ export class LoginContainer {
     password: ['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private store: Store<State>) {}
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    this.store.dispatch(new Login(this.loginForm.value));
   }
 }
