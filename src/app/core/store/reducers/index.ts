@@ -13,10 +13,15 @@ import { environment } from '../../../../environments/environment';
  * ensure that none of the reducers accidentally mutates the state.
  */
 import { storeFreeze } from 'ngrx-store-freeze';
+import { UserState, userReducer } from './users.reducer';
 
-export interface State {}
+export interface State {
+  user: UserState;
+}
 
-export const reducers: ActionReducerMap<State> = {};
+export const reducers: ActionReducerMap<State> = {
+  user: userReducer,
+};
 
 // console.log all actions
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
@@ -29,5 +34,5 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
 }
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
-  ? [logger, storeFreeze]
+  ? [storeFreeze]
   : [];

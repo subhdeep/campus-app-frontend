@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 
 import {
   AuthActionTypes,
@@ -19,7 +19,7 @@ export class AuthEffects {
   login$ = this.actions$.pipe(
     ofType<Login>(AuthActionTypes.Login),
     map(action => action.payload),
-    exhaustMap((auth: LoginCred) =>
+    switchMap((auth: LoginCred) =>
       this.authService.login(auth).pipe(
         map(user => new LoginSuccess({ user })),
         catchError(error => of(new LoginFailure(error)))

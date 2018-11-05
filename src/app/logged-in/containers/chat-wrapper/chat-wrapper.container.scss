@@ -1,0 +1,27 @@
+@import '../../../../variables.scss';
+
+.container {
+  min-height: 100vh;
+
+  .search {
+    width: 60vw;
+    @media #{$lt-md-break} {
+      width: 90vw;
+    }
+  }
+
+  .mat-display-1 {
+    margin-bottom: 10px;
+  }
+
+  .search-wrapper {
+    margin-bottom: 48px;
+  }
+}
+
+.img {
+  background-size: cover;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+}

@@ -9,19 +9,20 @@ import { AuthGuard } from './auth/services/auth-guard.service';
 import { environment } from '../environments/environment';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/chat', pathMatch: 'full' },
   {
-    path: 'chat',
-    loadChildren: './chat/chat.module#ChatModule',
+    path: '',
+    loadChildren: './logged-in/logged-in.module#LoggedInModule',
     canActivate: [AuthGuard],
   },
   { path: '**', component: NotFoundContainer },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    enableTracing: !environment.production,
-  })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      enableTracing: false,
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

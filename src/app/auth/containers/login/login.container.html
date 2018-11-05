@@ -3,16 +3,41 @@
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-form-field>
-          <input matInput placeholder="IITK Username" formControlName="username" required>
-        </mat-form-field>
+        <div fxLayout="column" fxLayoutAlign="start center">
+          <mat-form-field appearance="outline" [class.hidden]="selectedUsername">
+            <input matInput placeholder="IITK Username" formControlName="username" required [matAutocomplete]="auto" #username>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let result of searchResults$ | async" [value]="result.username">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                  <div class="img" [style.background-image]="url(result)"></div>
+                  <div fxLayout="column" fxLayoutAlign="start center" class="info">
+                    <span class="name"> {{ result.name }} ({{ result.username }}) </span>
+                  </div>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div class="view" *ngIf="selectedUsername && (searchResults$ | async) as results" fxLayout="row" fxLayoutAlign="space-between center" >
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+              <div class="img" [style.background-image]="url(results[0])"></div>
+              <div fxLayout="column" fxLayoutAlign="start center" class="info">
+                <span class="name"> {{ results[0].name }} ({{ results[0].username }}) </span>
+              </div>
+            </div>
+            <div class="close-button">
+              <button mat-icon-button type="button" (click)="clearSelection()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </div>
 
-        <mat-form-field>
-          <input matInput placeholder="Password" type="password" formControlName="password" required>
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Password" type="password" formControlName="password" required #password>
+          </mat-form-field>
 
-        <div fxLayout="row" fxLayoutAlign="center center" class="button-container">
-          <button type="submit" [disabled]="!loginForm.valid" mat-stroked-button>Login</button>
+          <div fxLayout="row" fxLayoutAlign="center center" class="button-container">
+            <button type="submit" [disabled]="!loginForm.valid" mat-stroked-button>Login</button>
+          </div>
         </div>
       </form>
     </mat-card-content>

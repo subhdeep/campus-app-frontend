@@ -1,31 +1,21 @@
 import { createSelector } from '@ngrx/store';
 
 import { getAllUsers } from 'src/app/core/store/selectors/users.selector';
-import { selectAuthState, AuthState } from '../reducers';
+import { selectLoggedInState } from '../reducers';
 
-export const selectLoginContainerState = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.loginContainer
+export const selectChatWrapperState = createSelector(
+  selectLoggedInState,
+  state => state.chatWrapper
 );
 
-export const getLoginPageError = createSelector(
-  selectLoginContainerState,
-  state => state.error
-);
-
-export const getLoginPagePending = createSelector(
-  selectLoginContainerState,
-  state => state.pending
-);
-
-export const selectTerm = createSelector(
-  selectLoginContainerState,
-  state => state.term
+export const selectSearchTerm = createSelector(
+  selectChatWrapperState,
+  state => state.searchTerm
 );
 
 export const selectFilteredStudents = createSelector(
   getAllUsers,
-  selectTerm,
+  selectSearchTerm,
   (users, term) => {
     if (term.length <= 3) return [];
     return users.filter(user => {

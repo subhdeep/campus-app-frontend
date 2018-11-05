@@ -1,11 +1,42 @@
+@import '~@angular/material/theming';
+
 .container {
   min-height: 100vh;
 
-  mat-form-field {
-    width: 100%;
+  mat-form-field,
+  .view {
+    width: 20vw;
   }
 
   .button-container {
     width: 100%;
   }
+
+  .hidden {
+    display: none;
+  }
+
+  .view {
+    border-radius: 4px;
+    margin-bottom: 5px;
+    padding: 10px;
+
+    .close-button {
+      visibility: hidden;
+    }
+
+    &:hover {
+      background-color: $dark-dividers;
+      .close-button {
+        visibility: visible;
+      }
+    }
+  }
+}
+
+.img {
+  background-size: cover;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
 }

@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="container">
+  <div>
+    <div class="mat-display-1">
+      <span>Start a conversation</span>
+    </div>
+    <div class="search-wrapper">
+      <mat-form-field class="search" appearance="outline">
+        <mat-label>With</mat-label>
+        <input matInput placeholder="Name/Username" [formControl]="searchCtrl" [matAutocomplete]="auto">
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let result of searchResults$ | async" [value]="result.username">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+              <div class="img" [style.background-image]="url(result)"></div>
+              <div fxLayout="column" fxLayoutAlign="start center" class="info">
+                <span class="name"> {{ result.name }} ({{ result.username }}) </span>
+              </div>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </div>
+  </div>
+</div>
