@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of, EMPTY } from 'rxjs';
+import { Observable, of, EMPTY, concat } from 'rxjs';
 import { switchMap, map, catchError, tap } from 'rxjs/operators';
 
 import { User } from 'src/app/models/user';
@@ -20,7 +20,7 @@ export class UsersService {
 
   getAll(): Observable<User[]> {
     let cached = false;
-    let observables = [];
+    let observables: Observable<User[]>[] = [];
     if (localStorage.getItem('users-data')) {
       const students = JSON.parse(localStorage.getItem('users-data')) as User[];
       cached = true;
@@ -47,6 +47,8 @@ export class UsersService {
           else return of([]);
         })
       );
-    return search$;
+
+    observables.push(search$);
+    return concat(...observables);
   }
 }

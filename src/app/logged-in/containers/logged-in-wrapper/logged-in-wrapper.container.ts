@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
+
+import { Observable } from 'rxjs';
+
+import { User } from 'src/app/models/user';
+import { getUser } from 'src/app/auth/store';
 
 import { State } from '../../store/reducers';
 import { BeginConnection } from '../../store/actions/websocket.actions';
@@ -9,9 +14,13 @@ import { BeginConnection } from '../../store/actions/websocket.actions';
   styleUrls: ['./logged-in-wrapper.container.scss'],
 })
 export class LoggedInWrapperContainer implements OnInit {
+  public currentUser$: Observable<User>;
+
   constructor(private store: Store<State>) {}
 
   ngOnInit() {
     this.store.dispatch(new BeginConnection());
+
+    this.currentUser$ = this.store.pipe(select(getUser));
   }
 }

@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from '../shared';
 import { LoggedInRoutingModule } from './logged-in-routing.module';
 
+import { components } from './components';
 import { containers } from './containers';
 import { effects, reducers } from './store';
 import { services } from './services';
@@ -19,7 +20,7 @@ import { services } from './services';
     StoreModule.forFeature('loggedIn', reducers),
     EffectsModule.forFeature(effects),
   ],
-  declarations: [...containers],
+  declarations: [...components, ...containers],
   providers: [...services],
 })
 export class LoggedInModule {}

@@ -1,5 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { selectAuthState, AuthState } from '../reducers';
+import { getUserEntities } from 'src/app/core/store/selectors/users.selector';
 
 export const selectAuthStatusState = createSelector(
   selectAuthState,
@@ -11,7 +12,17 @@ export const getLoggedIn = createSelector(
   state => state.loggedIn
 );
 
-export const getUser = createSelector(
+export const getChecked = createSelector(
   selectAuthStatusState,
-  state => state.user
+  state => state.checked
+);
+
+export const getUserId = createSelector(
+  selectAuthStatusState,
+  state => state.userId
+);
+export const getUser = createSelector(
+  getUserId,
+  getUserEntities,
+  (userId, entities) => entities[userId]
 );

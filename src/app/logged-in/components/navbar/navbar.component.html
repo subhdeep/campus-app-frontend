@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <span>Campus App</span>
+
+  <!-- This fills the remaining space of the current row -->
+  <span fxFlex="1 1 auto"></span>
+
+  <div *ngIf="user" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" matRipple class="user-info">
+    <div class="img" [style.background-image]="url(user)"></div>
+    <span class="name" fxHide.lt-sm> {{ user.name }} </span>
+  </div>
+
+  <span class="logout">
+    <button matTooltip="Logout" aria-label="Logout from the app" mat-icon-button>
+      <mat-icon>logout</mat-icon>
+    </button>
+  </span>
+</mat-toolbar>

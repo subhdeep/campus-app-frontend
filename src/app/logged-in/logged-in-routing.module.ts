@@ -8,8 +8,8 @@ export const routes: Routes = [
     path: '',
     component: LoggedInWrapperContainer,
     children: [
-      { path: '', redirectTo: 'chat', pathMatch: 'full' },
-      { path: 'chat', component: ChatWrapperContainer },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: ChatWrapperContainer },
     ],
   },
 ];

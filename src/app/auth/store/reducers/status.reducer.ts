@@ -3,12 +3,14 @@ import { User } from '../../../models/user';
 
 export interface StatusState {
   loggedIn: boolean;
-  user: User | null;
+  checked: boolean;
+  userId: string | null;
 }
 
 const initialState: StatusState = {
   loggedIn: false,
-  user: null,
+  checked: false,
+  userId: null,
 };
 
 export function statusReducer(
@@ -20,7 +22,16 @@ export function statusReducer(
       return {
         ...state,
         loggedIn: true,
-        user: action.payload.user,
+        userId: action.payload.userId,
+      };
+    }
+
+    case AuthActionTypes.CheckLoginResult: {
+      return {
+        ...state,
+        checked: true,
+        loggedIn: action.result,
+        userId: action.result ? action.userId : null,
       };
     }
 
