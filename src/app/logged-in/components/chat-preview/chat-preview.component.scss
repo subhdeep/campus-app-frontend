@@ -1,0 +1,42 @@
+@import '~@angular/material/theming';
+
+.img {
+  background-size: cover;
+  border-radius: 60px;
+  height: 60px;
+  margin: 0 10px;
+  width: 60px;
+}
+
+.container {
+  border-bottom: solid 1px $dark-dividers;
+  cursor: pointer;
+  padding: 10px 0;
+  max-width: 20vw;
+
+  &.active-link {
+    background-color: mat-color($mat-gray, 100);
+  }
+}
+
+.column {
+  max-width: calc(20vw - 80px);
+  padding-right: 5px;
+}
+
+.name,
+.body,
+.time {
+  margin-top: 5px;
+}
+
+.body,
+.time {
+  color: mat-color($mat-gray, 500);
+}
+
+.body {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

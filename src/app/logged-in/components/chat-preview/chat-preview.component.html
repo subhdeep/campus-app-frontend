@@ -1,3 +1,10 @@
-<div>
-  {{ chat | json }}
+<div fxLayout="row" fxLayoutAlign="start stretch" class="container" [routerLink]="['/', chat.user.username]" routerLinkActive="active-link">
+  <div fxFlex="0 0 auto" class="img" [style.background-image]="url"></div>
+  <div fxFlex="1 1 auto" fxLayout="column" class="column">
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <span class="name"> {{ chat.user.name }} </span>
+      <span class="time mat-caption"> {{ chat.firstMessage.created_at | date:'shortTime' }} </span>
+    </div>
+    <div class="body mat-caption"> <span *ngIf="chat.firstMessage.from !== chat.user.username">You:</span> {{ chat.firstMessage.body }} </div>
+  </div>
 </div>

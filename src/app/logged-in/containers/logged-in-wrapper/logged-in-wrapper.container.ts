@@ -9,6 +9,8 @@ import { getUser } from 'src/app/auth/store';
 
 import { State } from '../../store/reducers';
 import { BeginConnection } from '../../store/actions/websocket.actions';
+import { GetPreviews } from '../../store/actions/chat-preview.actions';
+import { selectChatPreviewViewModels } from '../../store/selectors/chat-preview.selector';
 
 @Component({
   templateUrl: './logged-in-wrapper.container.html',
@@ -22,8 +24,9 @@ export class LoggedInWrapperContainer implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new BeginConnection());
+    this.store.dispatch(new GetPreviews());
 
     this.currentUser$ = this.store.pipe(select(getUser));
-    this.chatPreviews$ = of([]);
+    this.chatPreviews$ = this.store.pipe(select(selectChatPreviewViewModels));
   }
 }

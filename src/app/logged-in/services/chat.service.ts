@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ChatMessage } from 'src/app/models/websockets';
+import { ChatPreview } from 'src/app/models/chat-preview';
 
 @Injectable()
 export class ChatService {
@@ -13,5 +14,9 @@ export class ChatService {
     return this.http.get<ChatMessage[]>('/api/messages', {
       params: { username },
     });
+  }
+
+  getRecents(): Observable<ChatPreview[]> {
+    return this.http.get<ChatPreview[]>('/api/recents');
   }
 }
