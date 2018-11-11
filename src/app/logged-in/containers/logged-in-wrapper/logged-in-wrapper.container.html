@@ -1,4 +1,4 @@
-<ca-navbar [user]="currentUser$ | async"></ca-navbar>
+<ca-navbar [user]="currentUser$ | async" (logout)="onLogout()"></ca-navbar>
 <mat-sidenav-container>
   <mat-sidenav *ngIf="chatPreviews$ | async as chatPreviews" mode="side" [opened]="chatPreviews.length !== 0">
     <ca-chat-preview *ngFor="let chat of chatPreviews" [chat]="chat">

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { User } from 'src/app/models/user';
 import { LoginCred } from 'src/app/models/login-cred';
@@ -19,11 +19,11 @@ export class AuthService {
     return this.http.post<LoginResponse>('/api/user/login', loginCred);
   }
 
-  check(): Observable<LoginResponse> {
-    return this.http.get<LoginResponse>('/api/user/me');
+  logout() {
+    return this.http.post('/api/user/logout', {});
   }
 
-  logout() {
-    return of(true);
+  check(): Observable<LoginResponse> {
+    return this.http.get<LoginResponse>('/api/user/me');
   }
 }

@@ -11,6 +11,7 @@ import { State } from '../../store/reducers';
 import { BeginConnection } from '../../store/actions/websocket.actions';
 import { GetPreviews } from '../../store/actions/chat-preview.actions';
 import { selectChatPreviewViewModels } from '../../store/selectors/chat-preview.selector';
+import { Logout } from 'src/app/auth/store/actions/auth.actions';
 
 @Component({
   templateUrl: './logged-in-wrapper.container.html',
@@ -28,5 +29,9 @@ export class LoggedInWrapperContainer implements OnInit {
 
     this.currentUser$ = this.store.pipe(select(getUser));
     this.chatPreviews$ = this.store.pipe(select(selectChatPreviewViewModels));
+  }
+
+  onLogout() {
+    this.store.dispatch(new Logout());
   }
 }

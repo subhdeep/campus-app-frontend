@@ -11,6 +11,7 @@ import {
   LoginSuccess,
   CheckLogin,
   CheckLoginResult,
+  Logout,
 } from '../actions/auth.actions';
 import { LoginCred } from 'src/app/models/login-cred';
 import { AuthService } from '../../services/auth.service';
@@ -26,6 +27,17 @@ export class AuthEffects {
         map(res => res.username),
         map(userId => new LoginSuccess({ userId })),
         catchError(error => of(new LoginFailure(error)))
+      )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  logout$ = this.actions$.pipe(
+    ofType<Logout>(AuthActionTypes.Logout),
+    switchMap(() =>
+      this.authService.logout().pipe(
+        catchError(error => of(null)),
+        tap(() => this.router.navigate(['/login']))
       )
     )
   );
