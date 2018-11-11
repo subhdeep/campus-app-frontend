@@ -1,5 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" class="container" [routerLink]="['/', chat.user.username]" routerLinkActive="active-link">
-  <div fxFlex="0 0 auto" class="img" [style.background-image]="url"></div>
+  <div fxFlex="0 0 auto" class="img" [style.background-image]="url">
+    <div class="indicator" [class.online]="chat.user.username | getOnline | async"></div>
+  </div>
   <div fxFlex="1 1 auto" fxLayout="column" class="column">
     <div fxLayout="row" fxLayoutAlign="space-between">
       <span class="name"> {{ chat.user.name }} </span>

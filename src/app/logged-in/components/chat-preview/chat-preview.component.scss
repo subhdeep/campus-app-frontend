@@ -1,11 +1,29 @@
 @import '~@angular/material/theming';
 
+$img-dim: 60px;
+$ind-dim: 12.5px;
+
 .img {
   background-size: cover;
-  border-radius: 60px;
-  height: 60px;
+  border-radius: $img-dim;
+  height: $img-dim;
   margin: 0 10px;
-  width: 60px;
+  position: relative;
+  width: $img-dim;
+
+  .indicator {
+    border-radius: $ind-dim;
+    bottom: 0;
+    height: $ind-dim;
+    position: absolute;
+    right: 0;
+    width: $ind-dim;
+
+    &.online {
+      background-color: mat-color($mat-light-green, 500);
+      border: solid 2px mat-color($mat-gray, 50);
+    }
+  }
 }
 
 .container {

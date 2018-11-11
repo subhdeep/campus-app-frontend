@@ -21,6 +21,7 @@ mat-form-field {
 }
 
 $img-dim: 7.5vw;
+$ind-dim: 1.5625vw;
 
 .img {
   background-size: cover;
@@ -28,7 +29,22 @@ $img-dim: 7.5vw;
   height: $img-dim;
   margin-bottom: 20px;
   margin-top: 20px;
+  position: relative;
   width: $img-dim;
+
+  .indicator {
+    border-radius: $ind-dim;
+    bottom: 0;
+    height: $ind-dim;
+    position: absolute;
+    right: 0;
+    width: $ind-dim;
+
+    &.online {
+      background-color: mat-color($mat-light-green, 500);
+      border: solid 2px mat-color($mat-gray, 50);
+    }
+  }
 }
 
 .user-info {

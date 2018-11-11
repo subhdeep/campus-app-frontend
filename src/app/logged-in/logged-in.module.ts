@@ -9,6 +9,7 @@ import { LoggedInRoutingModule } from './logged-in-routing.module';
 
 import { components } from './components';
 import { containers } from './containers';
+import { pipes } from './pipes';
 import { effects, reducers } from './store';
 import { services } from './services';
 
@@ -20,7 +21,7 @@ import { services } from './services';
     StoreModule.forFeature('loggedIn', reducers),
     EffectsModule.forFeature(effects),
   ],
-  declarations: [...components, ...containers],
+  declarations: [...components, ...containers, ...pipes],
   providers: [...services],
 })
 export class LoggedInModule {}
