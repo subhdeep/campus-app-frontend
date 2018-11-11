@@ -1,0 +1,45 @@
+@import '~@angular/material/theming';
+
+.wrapper {
+  height: calc(100vh - 64px);
+  overflow-y: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.container {
+  border-right: solid 1px $dark-dividers;
+  height: calc(100vh - 64px + 1.34375em - 0.75em);
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 75%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+$img-dim: 7.5vw;
+
+.img {
+  background-size: cover;
+  border-radius: $img-dim;
+  height: $img-dim;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: $img-dim;
+}
+
+.user-info {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 25%;
+}
+
+.name,
+.username,
+.details {
+  text-align: center;
+}

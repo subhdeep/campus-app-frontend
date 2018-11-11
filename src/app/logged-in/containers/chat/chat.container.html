@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <div class="container">
+    <ca-chats [userId]="userId" [messages]="chatMessages$ | async" [pending]="pending$ | async"></ca-chats>
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Type a message..." [formControl]="bodyCtrl" (keyup.enter)="onSend()">
+      <button matSuffix mat-icon-button (click)="onSend()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="user-info" fxLayout="column" *ngIf="user$ | async as user">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div class="img" [style.background-image]="url(user)"></div>
+    </div>
+    <div class="mat-headline name">
+      {{ user.name }}
+    </div>
+    <div class="mat-title username">
+      ({{ user.username }})
+    </div>
+    <div class="details">
+      {{ user.prog }}, {{ user.dept }}
+    </div>
+  </div>
+</div>

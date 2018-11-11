@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { Store, select } from '@ngrx/store';
@@ -30,7 +31,11 @@ export class ChatWrapperContainer implements OnInit {
   public searchResults$: Observable<User[]>;
   public searchCtrl = new FormControl();
 
-  constructor(private sanitizer: DomSanitizer, private store: Store<State>) {}
+  constructor(
+    private router: Router,
+    private sanitizer: DomSanitizer,
+    private store: Store<State>
+  ) {}
 
   ngOnInit() {
     this.searchResults$ = this.store.pipe(select(selectFilteredStudents));
@@ -60,6 +65,6 @@ export class ChatWrapperContainer implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent) {
-    console.log(event.option.value);
+    this.router.navigate([event.option.value]);
   }
 }

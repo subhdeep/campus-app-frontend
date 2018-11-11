@@ -10,6 +10,8 @@ interface SearchResponse {
   u: string;
   n: string;
   i: string;
+  d: string;
+  p: string;
 }
 
 @Injectable({
@@ -36,6 +38,8 @@ export class UsersService {
               username: v.u,
               name: v.n,
               roll: v.i,
+              dept: v.d,
+              prog: v.p,
             };
           });
         }),

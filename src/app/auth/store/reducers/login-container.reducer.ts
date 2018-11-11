@@ -6,12 +6,14 @@ import {
 
 export interface LoginContainerState {
   term: string;
+  fixed: boolean;
   error: string | null;
   pending: boolean;
 }
 
 export const initialState: LoginContainerState = {
   term: '',
+  fixed: false,
   error: null,
   pending: false,
 };
@@ -49,6 +51,7 @@ export function loginContainerReducer(
       return {
         ...state,
         term: '',
+        fixed: false,
       };
     }
 
@@ -56,6 +59,14 @@ export function loginContainerReducer(
       return {
         ...state,
         term: action.term,
+      };
+    }
+
+    case LoginContainerActionTypes.FixSearch: {
+      return {
+        ...state,
+        term: action.username,
+        fixed: true,
       };
     }
 

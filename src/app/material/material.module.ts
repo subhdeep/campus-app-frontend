@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -18,6 +19,7 @@ const modules = [
   MatIconModule,
   MatInputModule,
   MatRippleModule,
+  MatSidenavModule,
   MatToolbarModule,
   MatTooltipModule,
   TextFieldModule,

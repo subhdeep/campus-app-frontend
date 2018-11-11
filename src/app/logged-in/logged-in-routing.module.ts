@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ChatWrapperContainer, LoggedInWrapperContainer } from './containers';
+import {
+  ChatContainer,
+  ChatWrapperContainer,
+  LoggedInWrapperContainer,
+} from './containers';
 
 export const routes: Routes = [
   {
@@ -10,6 +14,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: ChatWrapperContainer },
+      { path: ':userId', component: ChatContainer },
     ],
   },
 ];

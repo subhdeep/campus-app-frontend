@@ -1,0 +1,4 @@
+<mat-sidenav mode="side" [opened]="chatPreviews.length !== 0">
+  <ca-chat-preview *ngFor="let chat of chatPreviews" [chat]="chat">
+  </ca-chat-preview>
+</mat-sidenav>

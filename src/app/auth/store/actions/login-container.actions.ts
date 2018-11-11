@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 export enum LoginContainerActionTypes {
   ResetSearch = '[Auth] Reset Search Login Container',
   PerformSearch = '[LoggedIn] Perform Search Login Container',
+  FixSearch = '[LoggedIn] Fix Search Login Container',
 }
 
 export class ResetSearch implements Action {
@@ -14,4 +15,12 @@ export class PerformSearch implements Action {
   constructor(public term: string) {}
 }
 
-export type LoginContainerActionsUnion = ResetSearch | PerformSearch;
+export class FixSearch implements Action {
+  readonly type = LoginContainerActionTypes.FixSearch;
+  constructor(public username: string) {}
+}
+
+export type LoginContainerActionsUnion =
+  | ResetSearch
+  | PerformSearch
+  | FixSearch;

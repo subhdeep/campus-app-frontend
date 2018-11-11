@@ -8,7 +8,7 @@ export interface ChatMessage {
   body: string;
   from: string;
   id?: string;
-  tid?: string;
+  tid?: number;
 }
 
 type MessagesUnion = ChatMessage;

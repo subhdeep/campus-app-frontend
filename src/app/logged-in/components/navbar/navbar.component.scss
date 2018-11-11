@@ -1,5 +1,10 @@
 @import '../../../../variables.scss';
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
 .img {
   background-size: cover;
   border-radius: 40px;

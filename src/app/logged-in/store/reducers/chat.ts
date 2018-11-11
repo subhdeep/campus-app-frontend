@@ -1,24 +1,27 @@
+import { ChatMessage } from 'src/app/models/websockets';
 import {
   WebsocketActionsUnion,
   WebsocketActionTypes,
 } from '../actions/websocket.actions';
-import { ChatMessage } from 'src/app/models/websockets';
+import { ChatActionsUnion, ChatActionTypes } from '../actions/chat.actions';
 
 export interface ChatState {
   messages: { [key: string]: ChatMessage[] };
   pending: { [key: string]: ChatMessage[] };
+  loading: boolean;
   tid: number;
 }
 
 const initialState: ChatState = {
   messages: {},
   pending: {},
+  loading: false,
   tid: 0,
 };
 
 export function chatReducer(
   state: ChatState = initialState,
-  action: WebsocketActionsUnion
+  action: WebsocketActionsUnion | ChatActionsUnion
 ): ChatState {
   switch (action.type) {
     case WebsocketActionTypes.ChatMessageReceived: {
@@ -54,12 +57,7 @@ export function chatReducer(
     }
     case WebsocketActionTypes.ChatAckReceived: {
       const msgTo = action.payload.to;
-      const message = {
-        to: action.payload.to,
-        from: action.payload.from,
-        body: action.payload.body,
-        id: action.payload.id,
-      };
+      const message = action.payload;
 
       const pending = {
         ...state.pending,
@@ -84,6 +82,18 @@ export function chatReducer(
         messages,
         pending,
       };
+    }
+    case ChatActionTypes.GetMessages:
+      return { ...state, loading: true };
+    case ChatActionTypes.GetMessagesSuccess: {
+      const messages = {
+        ...state.messages,
+      };
+      messages[action.username] = action.messages.reverse();
+      return { ...state, messages, loading: false };
+    }
+    case ChatActionTypes.GetMessagesFail: {
+      return { ...state, loading: false };
     }
     default:
       return state;

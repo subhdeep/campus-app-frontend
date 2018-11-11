@@ -25,6 +25,7 @@ import { Login } from '../../store/actions/auth.actions';
 import {
   PerformSearch,
   ResetSearch,
+  FixSearch,
 } from '../../store/actions/login-container.actions';
 
 @Component({
@@ -83,6 +84,7 @@ export class LoginContainer implements OnDestroy, OnInit {
   selected(event: MatAutocompleteSelectedEvent) {
     this.selectedUsername = true;
     this.passwordInput.nativeElement.focus();
+    this.store.dispatch(new FixSearch(event.option.value));
   }
 
   clearSelection() {

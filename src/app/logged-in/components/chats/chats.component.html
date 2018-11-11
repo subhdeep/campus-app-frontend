@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="inner-container" #container>
+    <div *ngFor="let m of merged" fxLayout="row" [fxLayoutAlign]="m.from === userId ? 'start' : 'end'" class="message-wrapper">
+      <div class="message" [matTooltip]="m.created_at | date" [class.sent]="m.from !== userId" [class.pending]="m.pending">
+        {{ m.body }}
+      </div>
+    </div>
+  </div>
+</div>

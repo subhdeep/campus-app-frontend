@@ -23,11 +23,20 @@ export const selectTerm = createSelector(
   state => state.term
 );
 
+export const selectFixed = createSelector(
+  selectLoginContainerState,
+  state => state.fixed
+);
+
 export const selectFilteredStudents = createSelector(
   getAllUsers,
   selectTerm,
-  (users, term) => {
+  selectFixed,
+  (users, term, fixed) => {
     if (term.length <= 3) return [];
+    if (fixed) {
+      return users.filter(user => user.username === term);
+    }
     return users.filter(user => {
       const lcTerm = term.toLowerCase().replace(/\s\s+/g, ' ');
       const lcName = user.name.toLowerCase().replace(/\s\s+/g, ' ');

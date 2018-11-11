@@ -29,14 +29,10 @@ export class WebsocketEffects {
     map(msg => {
       switch (msg.type) {
         case MessageTypes.Chat: {
-          const chatMsg = msg.message as ChatMessage;
-          chatMsg.to = 'me';
-          return new ChatMessageReceived(chatMsg);
+          return new ChatMessageReceived(msg.message);
         }
         case MessageTypes.ChatAck: {
-          const chatMsg = msg.message as ChatMessage;
-          chatMsg.from = 'me';
-          return new ChatAckReceived(chatMsg);
+          return new ChatAckReceived(msg.message);
         }
       }
     })
