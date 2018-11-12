@@ -29,6 +29,10 @@ export class WebsocketEffects {
     map(msg => {
       switch (msg.type) {
         case MessageTypes.Chat: {
+          const audio = new Audio();
+          audio.src = '/assets/notify.mp3';
+          audio.load();
+          audio.play();
           return new ChatMessageReceived(msg.message);
         }
         case MessageTypes.ChatAck: {
