@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../../../../variables.scss';
 
 .wrapper {
   height: calc(100vh - 64px);
@@ -14,6 +15,12 @@
   position: absolute;
   top: 0;
   width: 75%;
+
+  @media #{$lt-sm-break} {
+    height: calc(100vh - 64px + 1.34375em - 0.75em - 56px);
+    top: 56px;
+    width: 100%;
+  }
 }
 
 mat-form-field {
@@ -22,6 +29,30 @@ mat-form-field {
 
 $img-dim: 7.5vw;
 $ind-dim: 1.5625vw;
+$mobile-img-dim: 40px;
+$mobile-ind-dim: 8.33px;
+
+.mobile-img {
+  background-size: cover;
+  border-radius: $mobile-img-dim;
+  height: $mobile-img-dim;
+  position: relative;
+  width: $mobile-img-dim;
+
+  .indicator {
+    border-radius: $mobile-ind-dim;
+    bottom: 0;
+    height: $mobile-ind-dim;
+    position: absolute;
+    right: 0;
+    width: $mobile-ind-dim;
+
+    &.online {
+      background-color: mat-color($mat-light-green, 500);
+      border: solid 2px mat-color($mat-gray, 50);
+    }
+  }
+}
 
 .img {
   background-size: cover;
@@ -52,10 +83,22 @@ $ind-dim: 1.5625vw;
   right: 0;
   top: 0;
   width: 25%;
+
+  @media #{$lt-sm-break} {
+    visibility: hidden;
+    width: 0;
+  }
 }
 
 .name,
 .username,
 .details {
   text-align: center;
+}
+
+.name {
+  @media #{$lt-sm-break} {
+    margin-bottom: 0;
+    margin-left: 10px;
+  }
 }

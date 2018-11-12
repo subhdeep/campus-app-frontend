@@ -17,7 +17,7 @@
       </button>
     </div>
     <div *ngFor="let m of merged" fxLayout="row" [fxLayoutAlign]="m.from === userId ? 'start' : 'end'" class="message-wrapper">
-      <div class="message" [matTooltip]="m.created_at | date" [class.sent]="m.from !== userId" [class.pending]="m.pending">
+      <div class="message" [matTooltip]="m['created_at'] | date:shortTime" [class.sent]="m.from !== userId" [class.pending]="m.pending">
         {{ m.body }}
       </div>
     </div>

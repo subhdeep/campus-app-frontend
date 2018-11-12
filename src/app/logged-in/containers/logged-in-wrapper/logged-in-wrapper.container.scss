@@ -1,3 +1,8 @@
+@import '../../../../variables.scss';
+
 mat-sidenav {
   width: 20vw;
+  @media #{$lt-sm-break} {
+    width: 80vw;
+  }
 }

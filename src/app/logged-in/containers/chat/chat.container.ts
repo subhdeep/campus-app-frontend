@@ -21,6 +21,7 @@ import {
 } from '../../store/selectors/chat-message.selector';
 import { ChatMessageSend } from '../../store/actions/websocket.actions';
 import { GetMessages, GetMoreMessages } from '../../store/actions/chat.actions';
+import { ObservableMedia } from '@angular/flex-layout';
 
 @Component({
   templateUrl: './chat.container.html',
@@ -42,6 +43,7 @@ export class ChatContainer implements OnDestroy, OnInit {
   public nextLink$: Observable<{ [key: string]: string }>;
 
   constructor(
+    private media: ObservableMedia,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private store: Store<State>
@@ -122,5 +124,9 @@ export class ChatContainer implements OnDestroy, OnInit {
     if (this.tidSubs$) {
       this.tidSubs$.unsubscribe();
     }
+  }
+
+  get isMobile(): boolean {
+    return this.media.isActive('xs');
   }
 }

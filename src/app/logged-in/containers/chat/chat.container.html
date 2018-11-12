@@ -1,4 +1,14 @@
 <div class="wrapper">
+  <mat-toolbar *ngIf="isMobile && user$ | async as user" color="primary">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div class="mobile-img" [style.background-image]="url(user)">
+        <div class="indicator" [class.online]="user.username | getOnline | async"></div>
+      </div>
+    </div>
+    <div class="mat-headline name">
+      {{ user.name }}
+    </div>
+  </mat-toolbar>
   <div class="container">
     <ca-chats
       [userId]="userId"

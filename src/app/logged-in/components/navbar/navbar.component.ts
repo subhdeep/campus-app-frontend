@@ -17,8 +17,12 @@ import { User } from 'src/app/models/user';
 })
 export class NavbarComponent {
   @Input()
+  public isMobile: boolean;
+  @Input()
   public user: User;
 
+  @Output()
+  toggle = new EventEmitter();
   @Output()
   logout = new EventEmitter();
 
@@ -33,5 +37,9 @@ export class NavbarComponent {
 
   onLogout() {
     this.logout.emit();
+  }
+
+  onToggle() {
+    this.toggle.emit();
   }
 }

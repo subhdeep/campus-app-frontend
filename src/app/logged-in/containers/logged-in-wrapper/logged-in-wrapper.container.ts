@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ObservableMedia } from '@angular/flex-layout';
 import { Store, select } from '@ngrx/store';
 
 import { Observable, of } from 'rxjs';
@@ -21,7 +22,7 @@ export class LoggedInWrapperContainer implements OnInit {
   public currentUser$: Observable<User>;
   public chatPreviews$: Observable<ChatPreviewViewModel[]>;
 
-  constructor(private store: Store<State>) {}
+  constructor(public media: ObservableMedia, private store: Store<State>) {}
 
   ngOnInit() {
     this.store.dispatch(new BeginConnection());
@@ -33,5 +34,16 @@ export class LoggedInWrapperContainer implements OnInit {
 
   onLogout() {
     this.store.dispatch(new Logout());
+  }
+
+  get isMobile(): boolean {
+    return this.media.isActive('xs');
+  }
+
+  get mode(): string {
+    if (this.isMobile) {
+      return 'over';
+    }
+    return 'side';
   }
 }

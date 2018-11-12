@@ -1,7 +1,15 @@
-<ca-navbar [user]="currentUser$ | async" (logout)="onLogout()"></ca-navbar>
-<mat-sidenav-container>
-  <mat-sidenav *ngIf="chatPreviews$ | async as chatPreviews" mode="side" [opened]="chatPreviews.length !== 0">
-    <ca-chat-preview *ngFor="let chat of chatPreviews" [chat]="chat">
+<ca-navbar
+  [isMobile]="isMobile"
+  [user]="currentUser$ | async"
+  (logout)="onLogout()"
+  (toggle)="sidenav.toggle()">
+</ca-navbar>
+<mat-sidenav-container (swipeleft)="sidenav.close()" (swiperight)="sidenav.open()">
+  <mat-sidenav
+    [mode]="mode"
+    [opened]="(chatPreviews$ | async).length !== 0"
+    #sidenav>
+    <ca-chat-preview *ngFor="let chat of chatPreviews$ | async" [chat]="chat">
     </ca-chat-preview>
   </mat-sidenav>
   <mat-sidenav-content>
