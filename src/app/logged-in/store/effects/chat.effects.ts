@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { ChatService } from '../../services';
 import {
@@ -20,6 +20,10 @@ import {
   GetPreviewsSuccess,
   GetPreviewsFail,
 } from '../actions/chat-preview.actions';
+import {
+  PushNotification,
+  WebsocketActionTypes,
+} from '../actions/websocket.actions';
 
 @Injectable()
 export class ChatEffects {
@@ -58,6 +62,19 @@ export class ChatEffects {
       this.chatService.getRecents().pipe(
         map(messages => new GetPreviewsSuccess(messages)),
         catchError(err => of(new GetPreviewsFail(err)))
+      )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  pushSubscription$ = this.actions$.pipe(
+    ofType<PushNotification>(WebsocketActionTypes.PushNotification),
+    map(action => action.payload),
+    switchMap(sub =>
+      this.chatService.pushSubscription(sub).pipe(
+        tap(() => {
+          localStorage.setItem('push-notifications', 'subscribed');
+        })
       )
     )
   );

@@ -11,6 +11,10 @@ import { ChatPreview } from 'src/app/models/chat-preview';
 export class ChatService {
   constructor(private http: HttpClient) {}
 
+  public pushSubscription(sub: PushSubscription) {
+    return this.http.post('/api/push-subscription', sub);
+  }
+
   getMessages(username: string): Observable<[ChatMessage[], string]> {
     return this.http
       .get<ChatMessage[]>('/api/messages', {

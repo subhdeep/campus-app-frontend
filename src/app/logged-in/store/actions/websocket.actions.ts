@@ -8,6 +8,7 @@ export enum WebsocketActionTypes {
   ChatMessageReceived = '[LoggedIn] Chat Message Received',
   ChatMessageSend = '[LoggedIn] Chat Message Send',
   ChatAckReceived = '[LoggedIn] Chat Acknowledgement Received',
+  PushNotification = '[LoggedIn] Push Notifications',
 }
 
 export class BeginConnection implements Action {
@@ -38,9 +39,16 @@ export class ChatAckReceived implements Action {
   constructor(public payload: ChatMessage) {}
 }
 
+export class PushNotification implements Action {
+  readonly type = WebsocketActionTypes.PushNotification;
+
+  constructor(public payload: PushSubscription) {}
+}
+
 export type WebsocketActionsUnion =
   | BeginConnection
   | MessageReceived
   | ChatAckReceived
   | ChatMessageReceived
-  | ChatMessageSend;
+  | ChatMessageSend
+  | PushNotification;
