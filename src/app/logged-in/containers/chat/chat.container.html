@@ -1,6 +1,14 @@
 <div class="wrapper">
   <div class="container">
-    <ca-chats [userId]="userId" [messages]="chatMessages$ | async" [pending]="pending$ | async"></ca-chats>
+    <ca-chats
+      [userId]="userId"
+      [messages]="chatMessages$ | async"
+      [pending]="pending$ | async"
+      [loading]="loading$ | async"
+      [loadingMore]="loadingMore$ | async"
+      [nextLink]="nextLink$ | async"
+      (getMore)="onGetMore($event)">
+    </ca-chats>
     <mat-form-field appearance="fill">
       <input matInput placeholder="Type a message..." [formControl]="bodyCtrl" (keyup.enter)="onSend()">
       <button matSuffix mat-icon-button (click)="onSend()">

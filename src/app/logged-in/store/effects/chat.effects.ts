@@ -10,6 +10,9 @@ import {
   ChatActionTypes,
   GetMessagesSuccess,
   GetMessagesFail,
+  GetMoreMessages,
+  GetMoreMessagesSuccess,
+  GetMoreMessagesFail,
 } from '../actions/chat.actions';
 import {
   GetPreviews,
@@ -26,8 +29,24 @@ export class ChatEffects {
     map(action => action.username),
     switchMap(username =>
       this.chatService.getMessages(username).pipe(
-        map(messages => new GetMessagesSuccess(messages, username)),
-        catchError(err => of(new GetMessagesFail(err)))
+        map(
+          ([messages, link]) => new GetMessagesSuccess(messages, username, link)
+        ),
+        catchError(err => of(new GetMessagesFail(err, username)))
+      )
+    )
+  );
+
+  @Effect()
+  moreMessages$ = this.actions$.pipe(
+    ofType<GetMoreMessages>(ChatActionTypes.GetMoreMessages),
+    switchMap(action =>
+      this.chatService.getMoreMessages(action.link).pipe(
+        map(
+          ([messages, link]) =>
+            new GetMoreMessagesSuccess(messages, action.username, link)
+        ),
+        catchError(err => of(new GetMoreMessagesFail(err, action.username)))
       )
     )
   );

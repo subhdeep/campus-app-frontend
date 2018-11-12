@@ -1,5 +1,21 @@
 <div class="container">
-  <div class="inner-container" #container>
+  <div class="loading-container" fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div class="inner-container" #container infiniteScroll (scrolledUp)="onScroll()" [scrollWindow]="false" [infiniteScrollDisabled]="!hasMore">
+    <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="5px" class="loading-more" *ngIf="loadingMore">
+      <mat-spinner [diameter]="16"></mat-spinner>
+      <span fxLayout="column" fxLayoutAlign="center center"> Loading More... </span>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button
+        mat-button
+        color="accent"
+        *ngIf="hasMore && !loadingMore"
+        (click)="onScroll()">
+        Load More
+      </button>
+    </div>
     <div *ngFor="let m of merged" fxLayout="row" [fxLayoutAlign]="m.from === userId ? 'start' : 'end'" class="message-wrapper">
       <div class="message" [matTooltip]="m.created_at | date" [class.sent]="m.from !== userId" [class.pending]="m.pending">
         {{ m.body }}

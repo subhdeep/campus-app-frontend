@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, ViewChild, NgZone } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ChatMessage } from 'src/app/models/websockets';
 import { ChatMessageViewModel } from 'src/app/models/chat-message';
 import { take } from 'rxjs/operators';
@@ -12,16 +19,25 @@ export class ChatsComponent {
   private _prevChatHeight: number = 0;
 
   @Input()
+  loading: boolean;
+  @Input()
+  loadingMore: boolean;
+  @Input()
+  nextLink: { [key: string]: string };
+  @Input()
   userId: string;
   @Input()
   messages: ChatMessage[];
   @Input()
   pending: ChatMessage[];
 
+  @Output()
+  getMore = new EventEmitter<string>();
+
   @ViewChild('container')
   container: ElementRef<HTMLDivElement>;
 
-  constructor(private zone: NgZone) {
+  constructor() {
     setTimeout(() => {
       this.container.nativeElement.scrollTop = this.container.nativeElement.scrollHeight;
     }, 0);
@@ -41,5 +57,17 @@ export class ChatsComponent {
       };
     });
     return [...messages, ...pending];
+  }
+
+  get link(): string {
+    return this.nextLink[this.userId] != null ? this.nextLink[this.userId] : '';
+  }
+
+  get hasMore(): boolean {
+    return this.link !== '';
+  }
+
+  onScroll() {
+    this.getMore.emit(this.link);
   }
 }

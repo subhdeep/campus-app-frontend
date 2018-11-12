@@ -22,3 +22,13 @@ export const selectLoading = createSelector(
   selectChatState,
   state => state.loading
 );
+
+export const selectLoadingMore = createSelector(
+  selectChatState,
+  state => state.loadingMore
+);
+
+export const selectNextLink = createSelector(
+  selectChatState,
+  state => state.nextLink
+);

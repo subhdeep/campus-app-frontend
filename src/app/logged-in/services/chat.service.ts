@@ -11,10 +11,35 @@ import { ChatPreview } from 'src/app/models/chat-preview';
 export class ChatService {
   constructor(private http: HttpClient) {}
 
-  getMessages(username: string): Observable<ChatMessage[]> {
-    return this.http.get<ChatMessage[]>('/api/messages', {
-      params: { username },
-    });
+  getMessages(username: string): Observable<[ChatMessage[], string]> {
+    return this.http
+      .get<ChatMessage[]>('/api/messages', {
+        params: { username },
+        observe: 'response',
+      })
+      .pipe(
+        map(resp => {
+          let link = '';
+          if (resp.headers.has('link') || resp.headers.has('Link')) {
+            link = resp.headers.get('link') || resp.headers.get('Link');
+            link = `/api${link}`;
+          }
+          return [resp.body, link] as [ChatMessage[], string];
+        })
+      );
+  }
+
+  getMoreMessages(link: string): Observable<[ChatMessage[], string]> {
+    return this.http.get<ChatMessage[]>(link, { observe: 'response' }).pipe(
+      map(resp => {
+        let link = '';
+        if (resp.headers.has('link') || resp.headers.has('Link')) {
+          link = resp.headers.get('link') || resp.headers.get('Link');
+          link = `/api${link}`;
+        }
+        return [resp.body, link] as [ChatMessage[], string];
+      })
+    );
   }
 
   getRecents(): Observable<ChatPreview[]> {

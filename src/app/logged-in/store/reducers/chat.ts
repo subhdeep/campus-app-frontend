@@ -9,6 +9,8 @@ export interface ChatState {
   messages: { [key: string]: ChatMessage[] };
   pending: { [key: string]: ChatMessage[] };
   loading: boolean;
+  nextLink: { [key: string]: string };
+  loadingMore: boolean;
   tid: number;
 }
 
@@ -16,6 +18,8 @@ const initialState: ChatState = {
   messages: {},
   pending: {},
   loading: false,
+  nextLink: {},
+  loadingMore: false,
   tid: 0,
 };
 
@@ -83,17 +87,54 @@ export function chatReducer(
         pending,
       };
     }
-    case ChatActionTypes.GetMessages:
-      return { ...state, loading: true };
+    case ChatActionTypes.GetMessages: {
+      const nextLink = {
+        ...state.nextLink,
+      };
+      nextLink[action.username] = '';
+      return {
+        ...state,
+        nextLink,
+        loadingMore: false,
+        loading: true,
+      };
+    }
     case ChatActionTypes.GetMessagesSuccess: {
+      const nextLink = {
+        ...state.nextLink,
+      };
+      nextLink[action.username] = action.nextLink;
       const messages = {
         ...state.messages,
       };
       messages[action.username] = action.messages.reverse();
-      return { ...state, messages, loading: false };
+      return { ...state, messages, nextLink, loading: false };
     }
     case ChatActionTypes.GetMessagesFail: {
-      return { ...state, loading: false };
+      const nextLink = {
+        ...state.nextLink,
+      };
+      nextLink[action.username] = '';
+      return { ...state, nextLink, loading: false };
+    }
+    case ChatActionTypes.GetMoreMessages:
+      return {
+        ...state,
+        loadingMore: true,
+      };
+    case ChatActionTypes.GetMoreMessagesSuccess: {
+      const nextLink = {
+        ...state.nextLink,
+      };
+      nextLink[action.username] = action.nextLink;
+      const messages = {
+        ...state.messages,
+      };
+      messages[action.username] = [
+        ...action.messages.reverse(),
+        ...messages[action.username],
+      ];
+      return { ...state, messages, nextLink, loadingMore: false };
     }
     default:
       return state;

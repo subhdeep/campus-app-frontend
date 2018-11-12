@@ -16,9 +16,11 @@ import {
   selectPending,
   selectTid,
   selectLoading,
+  selectLoadingMore,
+  selectNextLink,
 } from '../../store/selectors/chat-message.selector';
 import { ChatMessageSend } from '../../store/actions/websocket.actions';
-import { GetMessages } from '../../store/actions/chat.actions';
+import { GetMessages, GetMoreMessages } from '../../store/actions/chat.actions';
 
 @Component({
   templateUrl: './chat.container.html',
@@ -36,6 +38,8 @@ export class ChatContainer implements OnDestroy, OnInit {
   public loading$: Observable<boolean>;
   public pending$: Observable<ChatMessage[]>;
   public user$: Observable<User>;
+  public loadingMore$: Observable<boolean>;
+  public nextLink$: Observable<{ [key: string]: string }>;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +75,8 @@ export class ChatContainer implements OnDestroy, OnInit {
       )
     );
     this.loading$ = this.store.pipe(select(selectLoading));
+    this.loadingMore$ = this.store.pipe(select(selectLoadingMore));
+    this.nextLink$ = this.store.pipe(select(selectNextLink));
 
     this.userIdSubs$ = this.route.paramMap
       .pipe(
@@ -82,6 +88,10 @@ export class ChatContainer implements OnDestroy, OnInit {
     this.tidSubs$ = this.store
       .pipe(select(selectTid))
       .subscribe(tid => (this.tid = tid));
+  }
+
+  onGetMore(link: string) {
+    this.store.dispatch(new GetMoreMessages(this.userId, link));
   }
 
   onSend() {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { SharedModule } from '../shared';
 import { LoggedInRoutingModule } from './logged-in-routing.module';
@@ -16,6 +17,7 @@ import { services } from './services';
 @NgModule({
   imports: [
     SharedModule,
+    InfiniteScrollModule,
     ReactiveFormsModule,
     LoggedInRoutingModule,
     StoreModule.forFeature('loggedIn', reducers),
