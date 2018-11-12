@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../../../../variables.scss';
 
 .container {
   min-height: 100vh;
@@ -6,6 +7,10 @@
   mat-form-field,
   .view {
     width: 20vw;
+
+    @media #{$lt-sm-break} {
+      width: 80vw;
+    }
   }
 
   .button-container {

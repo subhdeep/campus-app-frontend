@@ -1,8 +1,13 @@
 @import '~@angular/material/theming';
+@import '../../../../variables.scss';
 .container {
   height: calc(100vh - 64px - 1.34375em - 1.5em - 1.125em);
   position: relative;
   width: 100%;
+
+  @media #{$lt-sm-break} {
+    height: calc(100vh - 64px - 1.34375em - 1.5em - 1.125em - 56px);
+  }
 }
 
 .inner-container {

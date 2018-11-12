@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span class="menu">
+  <span class="menu" *ngIf="isMobile">
     <button aria-label="Sidenav" mat-icon-button (click)="onToggle()">
       <mat-icon>menu</mat-icon>
     </button>
