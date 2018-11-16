@@ -36,11 +36,15 @@ export function chatPreviewReducer(
       });
     }
     case WebsocketActionTypes.ChatMessageReceived: {
+      const msgFrom =
+        action.payload.from === action.currentUser
+          ? action.payload.to
+          : action.payload.from;
       return chatPreviewEntityAdapter.upsertOne(
-        { userId: action.payload.from, firstMessage: action.payload },
+        { userId: msgFrom, firstMessage: action.payload },
         {
           ...state,
-          orderedIds: state.orderedIds.add(action.payload.from),
+          orderedIds: state.orderedIds.add(msgFrom),
         }
       );
     }

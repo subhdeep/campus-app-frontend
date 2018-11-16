@@ -24,7 +24,7 @@ export class MessageReceived implements Action {
 export class ChatMessageReceived implements Action {
   readonly type = WebsocketActionTypes.ChatMessageReceived;
 
-  constructor(public payload: ChatMessage) {}
+  constructor(public payload: ChatMessage, public currentUser: string) {}
 }
 
 export class ChatMessageSend implements Action {

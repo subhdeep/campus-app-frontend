@@ -29,7 +29,10 @@ export function chatReducer(
 ): ChatState {
   switch (action.type) {
     case WebsocketActionTypes.ChatMessageReceived: {
-      const msgFrom = action.payload.from;
+      const msgFrom =
+        action.payload.from === action.currentUser
+          ? action.payload.to
+          : action.payload.from;
       const messages = {
         ...state.messages,
       };
