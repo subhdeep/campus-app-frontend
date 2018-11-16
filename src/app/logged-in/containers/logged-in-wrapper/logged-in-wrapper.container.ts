@@ -40,7 +40,12 @@ export class LoggedInWrapperContainer implements OnInit {
     this.currentUser$ = this.store.pipe(select(getUser));
     this.chatPreviews$ = this.store.pipe(select(selectChatPreviewViewModels));
 
-    if (localStorage.getItem('push-notifications') == '') {
+    if (
+      environment.production &&
+      (localStorage.getItem('push-notifications') == '' ||
+        localStorage.getItem('push-notifications') == null)
+    ) {
+      console.log('Requesting subscription');
       this.swPush
         .requestSubscription({
           serverPublicKey: environment.vapid_public_key,

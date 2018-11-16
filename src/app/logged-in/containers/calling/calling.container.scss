@@ -1,0 +1,12 @@
+@import '../../../../variables.scss';
+
+.container {
+  background-color: map_get($mat-dark-theme-background, background);
+  color: map_get($mat-dark-theme-foreground, base);
+  height: 100vh;
+  width: 100vw;
+}
+
+.call-button {
+  background-color: map_get($mat-light-green, A700);
+}

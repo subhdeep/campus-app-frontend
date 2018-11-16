@@ -41,5 +41,10 @@
     <div class="details">
       {{ user.prog }}, {{ user.dept }}
     </div>
+    <div>
+      <button mat-icon-button (click)="onCall(user.username)">
+        <mat-icon>phone</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

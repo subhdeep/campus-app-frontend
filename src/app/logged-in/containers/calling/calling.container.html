@@ -1,0 +1,30 @@
+<div class="container" fxLayout="column" fxLayoutAlign="center center" *ngIf="calling">
+  <div *ngIf="!callAccepted">
+    Calling {{ with }}
+  </div>
+  <div *ngIf="callAccepted">
+    Connecting call with {{ with }} [ConnID: {{ withID }}]
+  </div>
+  <button mat-fab color="warn" (click)="hangup()">
+    <mat-icon aria-label="End Call">call_end</mat-icon>
+  </button>
+</div>
+
+<div class="container" fxLayout="column" fxLayoutAlign="center center" *ngIf="receiving">
+  <div *ngIf="!callAccepted">
+    {{ with }} is calling [ConnID: {{ withID }}]
+  </div>
+  <div *ngIf="callAccepted">
+    Connecting call with {{ with }} [ConnID: {{ withID }}]
+  </div>
+  <div fxLayoutAlign="center center">
+    <button mat-fab class="call-button" (click)="onAccept()" *ngIf="!callAccepted">
+      <mat-icon aria-label="Pick Up Call">call</mat-icon>
+    </button>
+    <button mat-fab color="warn" (click)="hangup()">
+      <mat-icon aria-label="End Call">call_end</mat-icon>
+    </button>
+  </div>
+</div>
+
+<audio #audio></audio>

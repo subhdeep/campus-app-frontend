@@ -1,6 +1,11 @@
 import { Action } from '@ngrx/store';
 
 import { WebsocketMessage, ChatMessage } from 'src/app/models/websockets';
+import {
+  WebRTCMessage,
+  WebRTCAckMessage,
+  WebRTCInitMessage,
+} from 'src/app/models/webrtc';
 
 export enum WebsocketActionTypes {
   BeginConnection = '[LoggedIn] Begin Connection',
@@ -9,6 +14,9 @@ export enum WebsocketActionTypes {
   ChatMessageSend = '[LoggedIn] Chat Message Send',
   ChatAckReceived = '[LoggedIn] Chat Acknowledgement Received',
   PushNotification = '[LoggedIn] Push Notifications',
+  WebRTC = '[LoggedIn] WebRTC Message Received',
+  WebRTCAck = '[LoggedIn] WebRTC Ack Received',
+  WebRTCInit = '[LoggedIn] WebRTC Init Received',
 }
 
 export class BeginConnection implements Action {
@@ -45,10 +53,31 @@ export class PushNotification implements Action {
   constructor(public payload: PushSubscription) {}
 }
 
+export class WebRTC implements Action {
+  readonly type = WebsocketActionTypes.WebRTC;
+
+  constructor(public payload: WebRTCMessage) {}
+}
+
+export class WebRTCAck implements Action {
+  readonly type = WebsocketActionTypes.WebRTCAck;
+
+  constructor(public payload: WebRTCAckMessage) {}
+}
+
+export class WebRTCInit implements Action {
+  readonly type = WebsocketActionTypes.WebRTCInit;
+
+  constructor(public payload: WebRTCInitMessage) {}
+}
+
 export type WebsocketActionsUnion =
   | BeginConnection
   | MessageReceived
   | ChatAckReceived
   | ChatMessageReceived
   | ChatMessageSend
+  | WebRTC
+  | WebRTCAck
+  | WebRTCInit
   | PushNotification;

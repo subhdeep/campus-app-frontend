@@ -48,8 +48,10 @@ export class WebsocketService {
 
   public begin() {
     const host = this.document.location.host;
+    const scheme =
+      this.document.location.protocol === 'https:' ? 'wss:' : 'ws:';
     this.messages = <Subject<WebsocketMessage>>this.connect(
-      `ws://${host}/api/ws`
+      `${scheme}//${host}/api/ws`
     ).pipe(
       map(
         (response: MessageEvent): WebsocketMessage => {

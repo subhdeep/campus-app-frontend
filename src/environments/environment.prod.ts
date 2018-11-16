@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   vapid_public_key:
-    'BOos0PX_-lZ3e3eqP2G9yftzuoQk-4O6R68Lang-rjzW4gcticB_GQ9s9fU5P_0rrH2AjgZvslgAleHW0H57Qzs',
+    'BE-lgOoJAb1Q2lQb3qSTYAs_lmfgu_zh_hlfd9H8AYeqLCW6xBS3UInV4fAYf7GPUed3CLuv7Sa3omiaAoC3Dxo',
 };

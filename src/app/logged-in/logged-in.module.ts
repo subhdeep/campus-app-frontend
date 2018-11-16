@@ -1,3 +1,4 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +10,7 @@ import { SharedModule } from '../shared';
 import { LoggedInRoutingModule } from './logged-in-routing.module';
 
 import { components } from './components';
-import { containers } from './containers';
+import { containers, entryContainers } from './containers';
 import { pipes } from './pipes';
 import { effects, reducers } from './store';
 import { services } from './services';
@@ -17,6 +18,7 @@ import { services } from './services';
 @NgModule({
   imports: [
     SharedModule,
+    OverlayModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
     LoggedInRoutingModule,
@@ -24,6 +26,7 @@ import { services } from './services';
     EffectsModule.forFeature(effects),
   ],
   declarations: [...components, ...containers, ...pipes],
+  entryComponents: [...entryContainers],
   providers: [...services],
 })
 export class LoggedInModule {}

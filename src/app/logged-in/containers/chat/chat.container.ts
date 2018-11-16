@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ObservableMedia } from '@angular/flex-layout';
 import { FormControl } from '@angular/forms';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -21,14 +22,14 @@ import {
 } from '../../store/selectors/chat-message.selector';
 import { ChatMessageSend } from '../../store/actions/websocket.actions';
 import { GetMessages, GetMoreMessages } from '../../store/actions/chat.actions';
-import { ObservableMedia } from '@angular/flex-layout';
+import { BeginCall } from '../../store/actions/webrtc.actions';
 
 @Component({
   templateUrl: './chat.container.html',
   styleUrls: ['./chat.container.scss'],
 })
 export class ChatContainer implements OnDestroy, OnInit {
-  private userId: string;
+  public userId: string;
   private userIdSubs$: Subscription;
   private tid: number;
   private tidSubs$: Subscription;
@@ -108,6 +109,10 @@ export class ChatContainer implements OnDestroy, OnInit {
       );
     }
     this.bodyCtrl.setValue('');
+  }
+
+  onCall(username: string) {
+    this.store.dispatch(new BeginCall(username));
   }
 
   url(user: User): SafeStyle {
